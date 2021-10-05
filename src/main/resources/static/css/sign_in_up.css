@@ -84,3 +84,10 @@ input:focus {
 .color-textdark {
     color: var(--textDark);
 }
+
+.validation-warning {
+
+}
+.span-margin {
+    margin-bottom: 5px;
+}

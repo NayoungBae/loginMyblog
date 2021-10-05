@@ -1,21 +1,9 @@
 $(document).ready(function() {
     isRegister();
 
-    $("#login-section").show();
-    $("#signup-section").hide();
 
     $("#login-a").click(function () {
-        $("#login-section").show();
-        $("#signup-section").hide();
-    });
-
-    $("#login-btn").click(function () {
-
-    });
-
-    $("#signin-a").click(function () {
-        $("#login-section").hide();
-        $("#signup-section").show();
+        document.location.href="/user/login";
     });
 });
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="MyBlog">
+  <meta property="og:description" content="나의 블로그에 글을 남겨보세요!">
+  <meta property="og:image" content="images/ogimage.png">
+  <title>Myblog - 회원가입</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/sign_in_up.css">
+  <script src="/js/sign_up.js"></script>
+</head>
+
+<body>
+<!-- 회원가입 section -->
+<section id="signup-section" class="container">
+  <div class="columns is-multiline">
+    <div class="column is-8 is-offset-2 register">
+      <div class="columns">
+        <div class="column right has-text-centered">
+          <h1 class="title is-4">회원가입</h1>
+          <!--<p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit</p>-->
+          <form th:action="@{/user/signup}" method="post" modelAttribute="signupRequestDto">
+            <p name="errorMessage" th:text="${errorMessage}"></p>
+            <div class="field">
+              <div class="control">
+                <input name="nickname" class="input is-medium" type="text"
+                       placeholder="닉네임" th:value="${signupRequestDto.nickname}">
+                <span class="validation-warning" th:text="${valid_nickname}"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input name="name" class="input is-medium" type="text"
+                       placeholder="이름" th:value="${signupRequestDto.name}">
+                <span class="validation-warning" th:text="${valid_name}"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input name="email" class="input is-medium" type="text"
+                       placeholder="이메일" th:value="${signupRequestDto.email}">
+                <span class="validation-warning" th:text="${valid_email}"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input name="password" class="input is-medium" type="password"
+                       placeholder="비밀번호" th:value="${signupRequestDto.password}">
+                <span class="validation-warning" th:text="${valid_password}"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input name="checkPassword" class="input is-medium" type="password"
+                       placeholder="비밀번호 확인" th:value="${signupRequestDto.checkPassword}">
+                <span class="validation-warning" th:text="${valid_checkPassword}"></span>
+              </div>
+            </div>
+
+            <button class="button is-block is-primary is-fullwidth is-medium">회원가입</button>
+            <br />
+            <span id="login-a" class="color-textdark">로그인</span>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="column is-8 is-offset-2">
+      <br>
+      <nav class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+          <small class="level-item" style="color: var(--textLight)">
+            &copy;2021 Nayoung.  All rights Reserved
+          </small>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
+</body>
+<style>
+</style>
+
+</html>

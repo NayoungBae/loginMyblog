@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByNickname(String nickname);
     Optional<User> findByKakaoId(Long kakaoId);
-    Optional<User> findByEmail(String kakaoEmail);
+    Optional<User> findByEmail(String mail); //카카오이메일 또는 회원가입 시 입력했던 이메일
 }
