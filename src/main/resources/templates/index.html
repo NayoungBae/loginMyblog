@@ -14,8 +14,8 @@
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/bulma-divider.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../static/js/index.js"></script>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <style>
     nav.navbar {
@@ -32,16 +32,32 @@
                 <a class="navbar-item" href="../..">
                     <img src="../images/logo.png" alt="Logo">
                 </a>
-                안녕하세요, <span th:text="${nickname}"></span>님!
                 <span class="navbar-burger burger" data-target="navbarMenu">
-              <span>로그아웃</span>
-              <span></span>
-              <span></span>
-            </span>
+                </span>
             </div>
             <div id="navbarMenu" class="navbar-menu">
                 <div class="navbar-end">
-                    <div class=" navbar-item">
+                    <div class="navbar-item">
+                        <div>안녕하세요, <span th:text="${nickname}"></span>님!</div>
+                        <div>
+                            <form id="my_form" action="/user/logout" method="post">
+                                <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                                    로그아웃
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!---------------------- 게시물 리스트 ---------------------->
+    <section class="hero section-container">
+        <div class="hero-body">
+            <div class="container list-btn-container">
+                <div class="container">
+                    <div class="is-right">
                         <div class="select is-rounded">
                             <select id="search-select">
                                 <option value="title">제목</option>
@@ -56,16 +72,6 @@
                             </span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!---------------------- 게시물 리스트 ---------------------->
-    <section class="hero section-container">
-        <div class="hero-body">
-            <div class="container list-btn-container">
-                <div class="container">
                     <div class="buttons is-right write-btn-container">
                         <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
                         <button id="write-btn" class="button is-rounded modal-button">글쓰기</button>

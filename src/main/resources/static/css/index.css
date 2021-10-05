@@ -12,6 +12,13 @@ html, body {
     /* 모바일화면에서 검색 부분 select태그와 input태그 가로정렬 */
     display: flex;
 }
+.search-btn-left {
+    width: 50%;
+    display: flex; /*bulma 사용 안해서 flex가 없음*/
+}
+.search-btn-right { /*flex가 이미 bulma에 있음*/
+    width: 50%;
+}
 #search-select {
     margin-right: 8px;
 }

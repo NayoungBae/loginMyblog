@@ -27,12 +27,25 @@ public class User {
     private String name;    //이름
 
     @Column(nullable = false)
+    private String email;    //이메일
+
+    @Column(nullable = false)
     private String password;    //비밀번호
 
 
-    public User(String nickname, String name, String password) {
+    public User(String nickname, String name, String email, String password) {
         this.nickname = nickname;
         this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    //카카오 사용자
+    public User(Long kakaoId, String nickname, String name, String email, String password) {
+        this.kakaoId = kakaoId;
+        this.nickname = nickname;
+        this.name = name;
+        this.email = email;
         this.password = password;
     }
 }
