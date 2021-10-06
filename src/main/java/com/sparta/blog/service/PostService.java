@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -17,7 +19,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Post createProduct(PostRequestDto requestDto, Long userId) {
+    public Post createPost(PostRequestDto requestDto, Long userId) {
         Post post = new Post(requestDto, userId);
         return postRepository.save(post);
     }
@@ -32,34 +34,22 @@ public class PostService {
     }
 
     @Transactional
-    public Page<Post> getPosts(String title, String name, String content, String page, Long userId) {
+    public List<Post> getPosts() {
         System.out.println("public Page<Post> getPosts() 함수 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("title: " + title + ", name: " + name + ", content: " + content +
-                                                                    ", page: " + page + ", userId: " + userId);
-        //현재 페이지 위치(문자열 -> 정수 변환)
-        int currnt_page = Integer.parseInt(page);
+
 
         //게시물 데이터와 페이지 관련 데이터 담는 변수
-        Page<Post> result;
+        List<Post> result = postRepository.findAllByOrderByModifiedAtDesc();
 
-        //of 함수 매개변수: (현재페이지(0부터 시작), 한 페이지 당 출력 개수)
-        PageRequest pageRequest = PageRequest.of(currnt_page, 10);
-        if(title.length() > 0) {
-            //제목으로 검색
-            result = postRepository.findByTitleContainingOrderByModifiedAtDesc(title, pageRequest);
-        } else if(name.length() > 0) {
-            //작성자 이름으로 검색
-            result = postRepository.findByNameContainingOrderByModifiedAtDesc(name, pageRequest);
-        } else if(content.length() > 0) {
-            //내용으로 검색
-            result = postRepository.findByContentContainingOrderByModifiedAtDesc(content, pageRequest);
-        } else {
-            //전체 게시물 조회
-            result = postRepository.findAllByOrderByModifiedAtDesc(pageRequest);
-        }
         System.out.println("public Page<Post> getPosts() 함수 끝 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return result;
+    }
 
+    @Transactional
+    public Post showDetail(Long id) {
+        return postRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("아이디가 존재하지 않습니다.")
+        );
     }
 
     @Transactional

@@ -13,18 +13,9 @@ public class HomeController {
 //        model.addAttribute("nickname", userDetails.getUsername());
 //        return "index";
 //    }
-
-    @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            String nickname = userDetails.getUsername();
-            System.out.println("nickname: " + nickname);
-            if(nickname != null) {
-                model.addAttribute("nickname", nickname);
-            }
-        } catch(Exception e) {
-            System.out.println("에러:" + e.getMessage());
-        }
-        return "index";
-    }
+//
+//    @GetMapping("/")
+//    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return "main";
+//    }
 }

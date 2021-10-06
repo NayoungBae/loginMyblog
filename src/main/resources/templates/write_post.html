@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta property="og:title" content="MyBlog">
+  <meta property="og:description" content="나의 블로그에 글을 남겨보세요!">
+  <meta property="og:image" content="images/ogimage.png">
+  <title>Myblog - 글쓰기</title>
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/bulma-divider.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/js/write_post.js"></script>
+<!--  <link rel="stylesheet" href="/css/index.css">-->
+
+</head>
+<style>
+  nav.navbar {
+    height: 6rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+  }
+</style>
+<body>
+<div class="wrap">
+  <!---------------------- NAV ---------------------->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="../..">
+          <img src="../images/logo.png" alt="Logo">
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+                </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div th:if="${nickname != null}">안녕하세요, <span th:text="${nickname}"></span>님!</div>
+            <div th:if="${nickname != null}">
+              <form id="my_form" action="/user/logout" method="post">
+                <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                  로그아웃
+                </a>
+              </form>
+            </div>
+          </div>
+          <a th:unless="${nickname != null}"
+             class="navbar-item is-size-5 has-text-weight-semibold" href="/user/signup">
+            Sign up
+          </a>
+          <a th:unless="${nickname != null}"
+             class="navbar-item is-size-5 has-text-weight-semibold" href="/user/login">
+            Sign in
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!---------------------- 게시물 리스트 ---------------------->
+  <section class="hero section-container">
+    <div class="hero-body">
+      <div class="container list-btn-container">
+        <section class="modal-card-body">
+          <!-- Content ... -->
+          <form action="/posts/post" method="post">
+            <div class="field">
+              <label class="label">제목</label>
+              <div class="control">
+                <input name="title" id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">작성자</label>
+              <div class="control">
+                <input name="name" id="write-name" class="input" type="text" placeholder="이름을 입력하세요">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">내용</label>
+              <div class="control">
+                <textarea name="content" id="write-content" class="textarea" placeholder="내용을 입력하세요"></textarea>
+              </div>
+              <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
+              <button class="button is-rounded modal-button">글쓰기</button>
+            </div>
+            <input id="write-id" type="hidden" value="">
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+
+<!---------------------- footer ---------------------->
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      ©2021 Nayoung.  All rights Reserved<br>
+      contact: <a href="mailto:nybae2015@gmail.com">nybae2015@gmail.com</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+    }
+
+  });
+</script>
+
+</body>
+
+</html>

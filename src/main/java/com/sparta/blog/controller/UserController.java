@@ -26,7 +26,10 @@ public class UserController {
     // 회원 로그인 페이지
     @GetMapping("/user/login")
     public String login(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println("public String login() 함수 시작 >>>>>>>>>>>>>>>>>>>>>>>>>");
         isLogined(model, userDetails);
+        System.out.println("isLogined(model, userDetails)");
+        System.out.println("public String login() 함수 끝 >>>>>>>>>>>>>>>>>>>>>>>>>");
         return "login";
     }
 
@@ -50,19 +53,34 @@ public class UserController {
     @GetMapping("/user/signup")
     public String signup(SignupRequestDto signupRequestDto, Model model,
                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println("public String signup() 함수 시작 >>>>>>>>>>>>>>>>>>>>>>>>>");
         isLogined(model, userDetails);
+        System.out.println("isLogined(model, userDetails)");
+        System.out.println("public String signup() 함수 끝 >>>>>>>>>>>>>>>>>>>>>>>>>");
         return "sign_up";
     }
 
+//    public void isLogined(Model model, UserDetailsImpl userDetails) {
+//        try {
+//            String nickname = userDetails.getUsername();
+//            System.out.println("nickname: " + nickname);
+//            if(nickname != null) {
+//                model.addAttribute("isLoginedMessage", "이미 로그인이 되어있습니다.");
+//            }
+//        } catch(Exception e) {
+//            System.out.println("UserController) 에러:" + e.getMessage());
+//        }
+//    }
+
     public void isLogined(Model model, UserDetailsImpl userDetails) {
         try {
-            String nickname = userDetails.getUsername();
+            String nickname = userDetails.getUser().getNickname();
             System.out.println("nickname: " + nickname);
             if(nickname != null) {
                 model.addAttribute("isLoginedMessage", "이미 로그인이 되어있습니다.");
             }
         } catch(Exception e) {
-            System.out.println("에러:" + e.getMessage());
+            System.out.println("UserController) 에러:" + e.getMessage());
         }
     }
 
