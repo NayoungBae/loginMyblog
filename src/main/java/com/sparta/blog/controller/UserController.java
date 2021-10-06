@@ -29,14 +29,7 @@ public class UserController {
 
     // 회원가입 페이지
     @GetMapping("/user/signup")
-    public String signup(SignupRequestDto signupRequestDto, Model model) {
-//        model.addAttribute("valid_nickname",
-//                            "닉네임은 3자 이상, 영어와 숫자로 이루어져야 합니다.");
-//        model.addAttribute("valid_name", " ");
-//        model.addAttribute("valid_email", " ");
-//        model.addAttribute("valid_password", " ");
-//        model.addAttribute("valid_checkPassword", "비밀번호는 최소 4자 이상입니다.");
-
+    public String signup(SignupRequestDto signupRequestDto) {
         return "sign_up";
     }
 

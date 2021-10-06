@@ -31,7 +31,7 @@
             <div class="field">
               <div class="control">
                 <input name="nickname" class="input is-medium" type="text"
-                       placeholder="닉네임" th:value="${signupRequestDto.nickname}">
+                       placeholder="닉네임" th:value="${signupRequestDto?.nickname}">
                 <span class="validation-warning" th:text="${valid_nickname}"></span>
               </div>
             </div>
@@ -70,7 +70,7 @@
 
             <button class="button is-block is-primary is-fullwidth is-medium">회원가입</button>
             <br />
-            <span id="login-a" class="color-textdark">로그인</span>
+            <a class="color-textdark" href="/user/login">로그인</a>
           </form>
         </div>
       </div>

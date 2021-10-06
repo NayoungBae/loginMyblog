@@ -46,6 +46,12 @@ public class UserService {
             throw new Exception("비밀번호가 일치하지 않습니다.");
         }
 
+        //비밀번호에 아이디값이 포함되어있는지 아닌지 판단
+        boolean isIncludedIdInPw = requestDto.getCheckPassword().contains(requestDto.getNickname());
+        if(isIncludedIdInPw) {
+            throw new Exception("비밀번호에 닉네임과 같은 값이 포함되어 있습니다.");
+        }
+
         //이메일 중복 검사(카카오와 연동때문에 추가)
         String email = requestDto.getEmail(); //이메일
         Optional<User> isExistEmaiil = userRepository.findByEmail(email);
