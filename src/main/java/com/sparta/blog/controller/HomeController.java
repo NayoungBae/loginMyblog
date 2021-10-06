@@ -17,12 +17,13 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
-            String username = userDetails.getUsername();
-            if(username != null) {
-                model.addAttribute("nickname", username);
+            String nickname = userDetails.getUsername();
+            System.out.println("nickname: " + nickname);
+            if(nickname != null) {
+                model.addAttribute("nickname", nickname);
             }
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("에러:" + e.getMessage());
         }
         return "index";
     }

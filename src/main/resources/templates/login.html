@@ -18,15 +18,19 @@
 </head>
 
 <body>
+<input id="isLoginedMessage" type="hidden" th:value="${isLoginedMessage}">
 <!-- 로그인 section -->
 <section id="login-section" class="container">
   <div class="columns is-multiline">
     <div class="column is-8 is-offset-2 register">
       <div class="columns">
         <div class="column right has-text-centered">
+          <a href="../..">
+            <img src="../images/logo.png" alt="Logo">
+          </a>
           <h1 class="title is-4">로그인</h1>
           <!--<p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit</p>-->
-          <p id="errorMessage">&nbsp;</p>
+          <p id="errorMessage" class="validation-warning" width="">&nbsp;</p>
           <form action="/user/login" method="post">
             <div class="field">
               <div class="control">
@@ -39,7 +43,7 @@
                 <input name="password" class="input is-medium" type="password" placeholder="비밀번호">
               </div>
             </div>
-            <button id="login-id" class="button is-block is-primary is-fullwidth is-medium">로그인</button>
+            <button id="login-id" class="button is-block is-info is-fullwidth is-medium">로그인</button>
             <br />
             <a class="color-textdark" href="/user/signup">회원가입</a>
           </form>

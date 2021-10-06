@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.blog.models.KakaoUserInfoDto;
 import com.sparta.blog.models.User;
+import com.sparta.blog.models.UserRoleEnum;
 import com.sparta.blog.repository.UserRepository;
 import com.sparta.blog.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,7 +132,10 @@ public class KakaoUserService {
                 String password = UUID.randomUUID().toString();
                 String encodedPassword = passwordEncoder.encode(password);
 
-                kakaoUser = new User(kakaoId, nickname, name, kakaoEmail, password);
+                //USER 권한 부여
+                UserRoleEnum role = UserRoleEnum.USER;
+
+                kakaoUser = new User(kakaoId, nickname, name, kakaoEmail, encodedPassword, role);
             } else {  //기존 회원 중 같은 이메일을 가진 회원이 있으면
                 //통합시키기
                 kakaoUser = sameEmailUser;

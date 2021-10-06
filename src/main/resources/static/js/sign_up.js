@@ -1,10 +1,12 @@
 $(document).ready(function() {
     //isRegister();
+    isLogined();
 
 
     // $("#login-a").click(function () {
     //     document.location.href="/user/login";
     // });
+
 });
 
 // function isRegister() {
@@ -24,3 +26,14 @@ $(document).ready(function() {
 //         return;
 //     }
 // }
+
+//로그인 되어있는 사용자가 회원가입 화면으로 이동 시 alert
+function isLogined() {
+    let message = $("#isLoginedMessage").val();
+    console.log(message);
+    if (message != "") {
+        alert(message);
+        document.location.href = "/";
+        return;
+    }
+}

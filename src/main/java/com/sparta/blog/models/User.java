@@ -32,20 +32,25 @@ public class User {
     @Column(nullable = false)
     private String password;    //비밀번호
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
 
-    public User(String nickname, String name, String email, String password) {
+    public User(String nickname, String name, String email, String password, UserRoleEnum role) {
         this.nickname = nickname;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     //카카오 사용자
-    public User(Long kakaoId, String nickname, String name, String email, String password) {
+    public User(Long kakaoId, String nickname, String name, String email, String password, UserRoleEnum role) {
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 }

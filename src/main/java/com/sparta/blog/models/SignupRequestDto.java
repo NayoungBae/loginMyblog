@@ -31,4 +31,7 @@ public class SignupRequestDto {
     @NotBlank(message = "비밀번호 확인을 입력해주세요.")
     @Size(min = 4, message = "비밀번호를 4글자 이상 입력해주세요.")
     private String checkPassword;
+
+    private boolean admin = false;
+    private String adminToken = "";
 }

@@ -18,21 +18,25 @@
 </head>
 
 <body>
+<input id="isLoginedMessage" type="hidden" th:value="${isLoginedMessage}">
 <!-- 회원가입 section -->
 <section id="signup-section" class="container">
   <div class="columns is-multiline">
     <div class="column is-8 is-offset-2 register">
       <div class="columns">
         <div class="column right has-text-centered">
+          <a href="../..">
+            <img src="../images/logo.png" alt="Logo">
+          </a>
           <h1 class="title is-4">회원가입</h1>
           <!--<p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit</p>-->
           <form th:action="@{/user/signup}" method="post" modelAttribute="signupRequestDto">
-            <p name="errorMessage" th:text="${errorMessage}"></p>
+            <p name="errorMessage" class="validation-warning" th:text="${errorMessage}">&nbsp;</p>
             <div class="field">
               <div class="control">
                 <input name="nickname" class="input is-medium" type="text"
-                       placeholder="닉네임" th:value="${signupRequestDto?.nickname}">
-                <span class="validation-warning" th:text="${valid_nickname}"></span>
+                       placeholder="닉네임" th:value="${signupRequestDto.nickname}">
+                <span class="validation-warning" th:text="${valid_nickname}">&nbsp;</span>
               </div>
             </div>
 
@@ -40,7 +44,7 @@
               <div class="control">
                 <input name="name" class="input is-medium" type="text"
                        placeholder="이름" th:value="${signupRequestDto.name}">
-                <span class="validation-warning" th:text="${valid_name}"></span>
+                <span class="validation-warning" th:text="${valid_name}">&nbsp;</span>
               </div>
             </div>
 
@@ -48,7 +52,7 @@
               <div class="control">
                 <input name="email" class="input is-medium" type="text"
                        placeholder="이메일" th:value="${signupRequestDto.email}">
-                <span class="validation-warning" th:text="${valid_email}"></span>
+                <span class="validation-warning" th:text="${valid_email}">&nbsp;</span>
               </div>
             </div>
 
@@ -56,7 +60,7 @@
               <div class="control">
                 <input name="password" class="input is-medium" type="password"
                        placeholder="비밀번호" th:value="${signupRequestDto.password}">
-                <span class="validation-warning" th:text="${valid_password}"></span>
+                <span class="validation-warning" th:text="${valid_password}">&nbsp;</span>
               </div>
             </div>
 
@@ -64,11 +68,11 @@
               <div class="control">
                 <input name="checkPassword" class="input is-medium" type="password"
                        placeholder="비밀번호 확인" th:value="${signupRequestDto.checkPassword}">
-                <span class="validation-warning" th:text="${valid_checkPassword}"></span>
+                <span class="validation-warning" th:text="${valid_checkPassword}">&nbsp;</span>
               </div>
             </div>
 
-            <button class="button is-block is-primary is-fullwidth is-medium">회원가입</button>
+            <button class="button is-block is-info is-fullwidth is-medium">회원가입</button>
             <br />
             <a class="color-textdark" href="/user/login">로그인</a>
           </form>

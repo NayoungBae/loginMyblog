@@ -2,6 +2,7 @@ package com.sparta.blog.service;
 
 import com.sparta.blog.models.SignupRequestDto;
 import com.sparta.blog.models.User;
+import com.sparta.blog.models.UserRoleEnum;
 import com.sparta.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,12 +37,11 @@ public class UserService {
         }
 
         //비밀번호
-        String password = passwordEncoder.encode(requestDto.getPassword()); //암호화된 비밀번호
-        System.out.println("password: " + password);
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword()); //암호화된 비밀번호
 
         //비밀번호 일치 확인(비밀번호와 비밀번호확인 값을 matches를 통해 비교)
         //(암호화되지 않은 비밀번호, 암호화된 비밀번호)
-        boolean isEqualPassword = passwordEncoder.matches(requestDto.getCheckPassword(), password);
+        boolean isEqualPassword = passwordEncoder.matches(requestDto.getCheckPassword(), encodedPassword);
         if(!isEqualPassword) {
             throw new Exception("비밀번호가 일치하지 않습니다.");
         }
@@ -55,17 +55,17 @@ public class UserService {
         //이메일 중복 검사(카카오와 연동때문에 추가)
         String email = requestDto.getEmail(); //이메일
         Optional<User> isExistEmaiil = userRepository.findByEmail(email);
-        System.out.println("email: " + email);
-        System.out.println("isExistEmaiil: " + isExistEmaiil);
         if(isExistEmaiil.isPresent()) {
             throw new Exception("중복된 이메일입니다.");
         }
 
+        //사용자 권한 부여
+        UserRoleEnum role = UserRoleEnum.USER;
 
         //중복된 닉네임이 존재하지 않을 경우
         String name = requestDto.getName();     //이름
 
-        User user = new User(nickname, name, email, password);
+        User user = new User(nickname, name, email, encodedPassword, role);
         userRepository.save(user);
         System.out.println("public User registerUser(SignupRequestDto requestDto) 끝 >>>>>>>>>>>");
 

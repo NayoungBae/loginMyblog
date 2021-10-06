@@ -3,9 +3,11 @@ package com.sparta.blog.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sparta.blog.models.SignupRequestDto;
 import com.sparta.blog.models.User;
+import com.sparta.blog.security.UserDetailsImpl;
 import com.sparta.blog.service.KakaoUserService;
 import com.sparta.blog.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,14 +25,45 @@ public class UserController {
 
     // 회원 로그인 페이지
     @GetMapping("/user/login")
-    public String login() {
+    public String login(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        isLogined(model, userDetails);
         return "login";
     }
 
+//    // 회원 로그인 페이지
+//    @GetMapping("/user/login")
+//    public String login(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        try {
+//            String nickname = userDetails.getUsername();
+//            System.out.println("nickname: " + nickname);
+//            if(nickname != null) {
+//                model.addAttribute("nickname", nickname);
+//            }
+//        } catch(Exception e) {
+//            System.out.println("에러:" + e.getMessage());
+//            model.addAttribute("errorMessage", e.getMessage());
+//        }
+//        return "login";
+//    }
+
     // 회원가입 페이지
     @GetMapping("/user/signup")
-    public String signup(SignupRequestDto signupRequestDto) {
+    public String signup(SignupRequestDto signupRequestDto, Model model,
+                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        isLogined(model, userDetails);
         return "sign_up";
+    }
+
+    public void isLogined(Model model, UserDetailsImpl userDetails) {
+        try {
+            String nickname = userDetails.getUsername();
+            System.out.println("nickname: " + nickname);
+            if(nickname != null) {
+                model.addAttribute("isLoginedMessage", "이미 로그인이 되어있습니다.");
+            }
+        } catch(Exception e) {
+            System.out.println("에러:" + e.getMessage());
+        }
     }
 
 //     //회원 가입 요청 처리

@@ -15,6 +15,9 @@ public class Post extends Timestamped{
     private Long id;        //글번호
 
     @Column(nullable = false)
+    private Long userId;    //사용자 고유번호
+
+    @Column(nullable = false)
     private String title;   //제목
 
     @Column(nullable = false)
@@ -23,10 +26,11 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String content; //내용
 
-    public Post(PostRequestDto requestDto) {
+    public Post(PostRequestDto requestDto, Long userId) {
         this.title = requestDto.getTitle();
         this.name = requestDto.getName();
         this.content = requestDto.getContent();
+        this.userId = userId;
     }
 
     public void update(PostRequestDto requestDto) {
