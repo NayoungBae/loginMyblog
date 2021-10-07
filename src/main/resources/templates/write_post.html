@@ -39,8 +39,8 @@
       <div id="navbarMenu" class="navbar-menu">
         <div class="navbar-end">
           <div class="navbar-item">
-            <div th:if="${nickname != null}">안녕하세요, <span th:text="${nickname}"></span>님!</div>
-            <div th:if="${nickname != null}">
+            <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+            <div th:if="${name != null}">
               <form id="my_form" action="/user/logout" method="post">
                 <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
                   로그아웃
@@ -48,11 +48,11 @@
               </form>
             </div>
           </div>
-          <a th:unless="${nickname != null}"
+          <a th:unless="${name != null}"
              class="navbar-item is-size-5 has-text-weight-semibold" href="/user/signup">
             Sign up
           </a>
-          <a th:unless="${nickname != null}"
+          <a th:unless="${name != null}"
              class="navbar-item is-size-5 has-text-weight-semibold" href="/user/login">
             Sign in
           </a>
@@ -61,7 +61,7 @@
     </div>
   </nav>
 
-  <!---------------------- 게시물 리스트 ---------------------->
+  <!---------------------- 글 쓰기 ---------------------->
   <section class="hero section-container">
     <div class="hero-body">
       <div class="container list-btn-container">
@@ -78,7 +78,8 @@
             <div class="field">
               <label class="label">작성자</label>
               <div class="control">
-                <input name="name" id="write-name" class="input" type="text" placeholder="이름을 입력하세요">
+                <input name="name" id="write-name" class="input" type="text"
+                                                   placeholder="이름을 입력하세요" th:value="${name}">
               </div>
             </div>
 

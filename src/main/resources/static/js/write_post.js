@@ -1,20 +1,23 @@
 $(document).ready(function() {
-    $("#write-post").click(function() {
-        let title = $("#write-title").val();
-        let name = $("#write-name").val();
-        let content = $("#write-content").val();
-        console.log("title: " + title + ", name: " + name + ", content: " + content);
-        $.ajax({
-            url: "/posts/post",
-            contentType: "POST",
-            data: {
-                title: title,
-                name: name,
-                content: content
-            },
-            success: function() {
-                document.location.href = "/";
-            }
-        });
-    });
+    //작성자 자동 입력
+    if($("#write-name").val() != null) {
+        $("#write-name").attr("readonly", true);
+    }
 });
+
+function validation() {
+    let title = $("#write-title").val();
+    let content = $("#write-content").val();
+
+    if(title == null) {
+        alert("제목을 입력하세요.");
+        $("#write-title").focus();
+        return;
+    }
+
+    if(content == null) {
+        alert("내용 입력하세요.");
+        $("#write-content").focus();
+        return;
+    }
+}

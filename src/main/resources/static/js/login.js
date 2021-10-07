@@ -14,13 +14,13 @@ function isErrorLogin() {
     if(queryString === "error") {
         $("#errorMessage").text("닉네임 또는 비밀번호를 확인해주세요");
         //alert("아이디나 비밀번호를 잘못 입력하였거나, 회원이 아닙니다.");
-        return;
     }
+    return;
 }
 
 //로그인 되어있는 사용자가 로그인 화면으로 이동 시 alert
 function isLogined() {
-    let message = $("#isLoginedMessage").val();
+    let message = $("#alreadyLoginedMessage").val();
     console.log(message);
     if(message != "") {
         alert(message);

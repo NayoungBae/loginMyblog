@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<input id="isLoginedMessage" type="hidden" th:value="${isLoginedMessage}">
+<input id="alreadyLoginedMessage" type="hidden" th:value="${alreadyLoginedMessage}">
 <!-- 로그인 section -->
 <section id="login-section" class="container">
   <div class="columns is-multiline">
@@ -30,6 +30,7 @@
           </a>
           <h1 class="title is-4">로그인</h1>
           <!--<p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit</p>-->
+          <p th:text="${mustLogin}"></p>
           <p id="errorMessage" class="validation-warning" width="">&nbsp;</p>
           <form action="/user/login" method="post">
             <div class="field">

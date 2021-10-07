@@ -31,7 +31,7 @@
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="../..">
-          <img src="../images/logo.png" alt="Logo">
+          <img src="/images/logo.png" alt="Logo">
         </a>
         <span class="navbar-burger burger" data-target="navbarMenu">
                 </span>
@@ -39,8 +39,8 @@
       <div id="navbarMenu" class="navbar-menu">
         <div class="navbar-end">
           <div class="navbar-item">
-            <div th:if="${nickname != null}">안녕하세요, <span th:text="${nickname}"></span>님!</div>
-            <div th:if="${nickname != null}">
+            <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+            <div th:if="${name != null}">
               <form id="my_form" action="/user/logout" method="post">
                 <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
                   로그아웃
@@ -48,11 +48,11 @@
               </form>
             </div>
           </div>
-          <a th:unless="${nickname != null}"
+          <a th:unless="${name != null}"
              class="navbar-item is-size-5 has-text-weight-semibold" href="/user/signup">
             Sign up
           </a>
-          <a th:unless="${nickname != null}"
+          <a th:unless="${name != null}"
              class="navbar-item is-size-5 has-text-weight-semibold" href="/user/login">
             Sign in
           </a>
@@ -99,20 +99,20 @@
             </tr>
             </thead>
             <tbody id="table-tbody">
-            <tr>
-              <td id="table-empty" colspan="5">
-                작성한 글이 없습니다.
-              </td>
-              <tr th:each="post : ${postList}" th:onclick="location.href='/posts/post/[[${post.id}]]'">
-                <td onclick="event.cancelBubble=true">
-                  <input type="checkbox" th:value="${post.id}">
+              <tr>
+                <td id="table-empty" colspan="5" th:if="${postList == null ||postList.size() == 0}">
+                  작성한 글이 없습니다.
                 </td>
-                <th th:text="${post.id}">1</th>
-                <td th:text="${post.title}">제목</td>
-                <td th:text="${post.name}">이름</td>
-                <td th:text="${#temporals.format(post.modifiedAt, 'YYYY/MM/dd HH:mm')}">날짜</td>
-            </tr>
-            </tr>
+              </tr>
+              <tr th:each="post : ${postList}" th:onclick="location.href='/posts/post/[[${post.id}]]'">
+                  <td onclick="event.cancelBubble=true">
+                    <input type="checkbox" th:value="${post.id}">
+                  </td>
+                  <th th:text="${post.id}">1</th>
+                  <td th:text="${post.title}">제목</td>
+                  <td th:text="${post.name}">이름</td>
+                  <td th:text="${#temporals.format(post.modifiedAt, 'YYYY/MM/dd HH:mm')}">날짜</td>
+              </tr>
             </tbody>
           </table>
         </div>

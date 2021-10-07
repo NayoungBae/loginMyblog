@@ -26,13 +26,10 @@ public class PostController {
     public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println("public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) 시작 >>>>");
         try {
-            String nickname = userDetails.getUser().getNickname();
-            if(nickname != null) {
-                System.out.println("nickname: " + nickname);
-                model.addAttribute("nickname", nickname);
+            if(userDetails != null) {
+                model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
+                model.addAttribute("userId", userDetails.getUser().getId()); //USER테이블 고유번호
             }
-            Long userId = userDetails.getUser().getId(); //USER테이블 고유번호
-            model.addAttribute("userId", userId);
 
             List<Post> postList = postService.getPosts();
             model.addAttribute("postList", postList);
@@ -46,7 +43,11 @@ public class PostController {
     }
 
     @GetMapping("posts/post")
-    public String writePost() {
+    public String writePost(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if(userDetails != null) {
+            model.addAttribute("userId", userDetails.getUser().getId());
+            model.addAttribute("name", userDetails.getUser().getName());
+        }
         return "write_post";
     }
 
@@ -69,17 +70,30 @@ public class PostController {
                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println("public Optional<Post> postDetail() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
-        //로그인 되어 있는 회원 테이블의 ID값
-        Long userId = userDetails.getUser().getId();
-        System.out.println("userId: " + userId);
-
         Post post = postService.showDetail(id);
 
-        model.addAttribute("userId", userId);
-        model.addAttribute("post", post);
+        model.addAttribute("userId", userDetails.getUser().getId()); //로그인 되어 있는 회원 테이블의 ID값
+        model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
+        model.addAttribute("post", post); //게시물 데이터
 
         System.out.println("public Optional<Post> postDetail() 끝 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return "post_detail";
+    }
+
+    //수정하기(Update)
+    @PutMapping("/posts/post/{id}")
+    public String updatePost(@PathVariable Long id, PostRequestDto requestDto, Model model,
+                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        System.out.println("public String updatePost() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        postService.update(id, requestDto);
+
+        //model.addAttribute("userId", userDetails.getUser().getId()); //로그인 되어 있는 회원 테이블의 ID값
+        //model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
+
+
+        System.out.println("public String updatePost() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        return "redirect:/posts/post/{id}";
     }
 
 }

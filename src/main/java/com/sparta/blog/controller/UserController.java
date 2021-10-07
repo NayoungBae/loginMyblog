@@ -77,10 +77,12 @@ public class UserController {
             String nickname = userDetails.getUser().getNickname();
             System.out.println("nickname: " + nickname);
             if(nickname != null) {
-                model.addAttribute("isLoginedMessage", "이미 로그인이 되어있습니다.");
+                System.out.println("if(nickname != null) {");
+                model.addAttribute("alreadyLoginedMessage", "이미 로그인이 되어있습니다.");
             }
         } catch(Exception e) {
             System.out.println("UserController) 에러:" + e.getMessage());
+            model.addAttribute("mustLogin","로그인이 필요합니다.");
         }
     }
 
@@ -107,7 +109,7 @@ public class UserController {
         if(errors.hasErrors()) {
             System.out.println("if(errors.hasErrors()) {");
             //회원가입 실패시, 입력 데이터를 유지
-           model.addAttribute("signupRequestDto", signupRequestDto);
+            model.addAttribute("signupRequestDto", signupRequestDto);
 
             //유효성 통과 못한 필드와 메시지를 핸들링
             Map<String, String> validatorResult = userService.validateHandling(errors);
