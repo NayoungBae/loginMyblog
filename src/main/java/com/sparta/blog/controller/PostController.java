@@ -27,6 +27,7 @@ public class PostController {
         System.out.println("public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) 시작 >>>>");
         try {
             if(userDetails != null) {
+                System.out.println("userId: " + userDetails.getUser().getId());
                 model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
                 model.addAttribute("userId", userDetails.getUser().getId()); //USER테이블 고유번호
             }
@@ -92,8 +93,18 @@ public class PostController {
         //model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
 
 
-        System.out.println("public String updatePost() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("public String updatePost() 끝 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return "redirect:/posts/post/{id}";
+    }
+
+    //삭제하기
+    @DeleteMapping("/posts/post/{id}")
+    public String deletePost(@PathVariable Long id) {
+        System.out.println("public String updatePost() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        postService.deletePost(id);
+
+        return "redirect:/";
     }
 
 }

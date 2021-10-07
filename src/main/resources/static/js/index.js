@@ -1,32 +1,8 @@
-let url = "/api/posts"; //이동할 url
-/*
-* 단위페이지: 하단에 previous나 Next page를 누르면 페이지 번호가 10개 묶음으로 바뀜
-*           ex) 1 2 3 4 5 6 7 8 9 10 : 한 묶음
-*               11 12 13 14 15 16 17 18 19 20 : 한 묶음
-* */
-
 $(document).ready(function() {
-    //page번호 세팅 후 게시물 목록 구성
-    getPagingAndPostsData(url, 0, 0);
-
-
-
-    //글쓰기 버튼 누르면 모달로 글쓰기 창이 나타남
-    $("#write-btn").click(function() {
-        $("#write-title").val("");
-        $("#write-name").val("");
-        $("#write-content").val("");
-        $("#write-name").attr("disabled", false); //작성자 이름 못 바꾸게 막았던거 풀기
-        $("#modal-name").text("글쓰기");
-        $("#modify-post-btn").hide();
-        $("#save-post-btn").show();
-        $("#write-modal").addClass("is-active");
-    });
-
-
 
     //체크박스 하나 선택해서 게시물 삭제
     $("#delete-btn").click(function() {
+        let checked = $("input:checkbox[name=check]").val();
         let checked_count = $("input:checkbox[name=check]:checked").length;
         if(checked_count > 1) {
             alert("하나만 선택해주세요");
@@ -37,19 +13,12 @@ $(document).ready(function() {
             alert("삭제할 게시물을 선택해주세요");
             return;
         }
-        if(confirm("삭제하시겠습니까?")) {
-            let checked_value = $("input:checkbox[name=check]:checked").val();
-            $.ajax({
-                type:"DELETE",
-                url:`/api/posts/${checked_value}`,
-                success: function() {
-                    window.location.reload();
-                }
-            });
+        if(checked_count == 1) {
+            if (confirm("삭제하시겠습니까?")) {
+                deletePost(checked);
+            }
         }
-
     });
-
 
 
     //글 저장(게시물 올리기)
@@ -118,6 +87,13 @@ $(document).ready(function() {
         getPagingAndPostsData(url, current_previous_val - 1, (current_previous_val - 1)*10);
     });
 });
+
+// 글 삭제
+function deletePost(id) {
+    $("#delete-form")
+        .attr("action","/posts/post/" + id)
+        .submit();
+}
 
 //페이징을 구성하고 데이터를 가져옴
 function getPagingAndPostsData(url, current_page, select_page) {

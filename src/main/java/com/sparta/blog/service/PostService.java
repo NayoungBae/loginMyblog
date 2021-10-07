@@ -18,7 +18,6 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    @Transactional
     public Post createPost(PostRequestDto requestDto, Long userId) {
         Post post = new Post(requestDto, userId);
         return postRepository.save(post);
@@ -33,7 +32,6 @@ public class PostService {
         return post.getId();
     }
 
-    @Transactional
     public List<Post> getPosts() {
         System.out.println("public Page<Post> getPosts() 함수 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
@@ -45,7 +43,6 @@ public class PostService {
         return result;
     }
 
-    @Transactional
     public Post showDetail(Long id) {
         return postRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지 않습니다.")

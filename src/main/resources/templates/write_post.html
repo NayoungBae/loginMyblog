@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="../css/bulma-divider.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/js/write_post.js"></script>
-<!--  <link rel="stylesheet" href="/css/index.css">-->
+  <link rel="stylesheet" href="/css/write_post.css">
+  <link rel="stylesheet" href="../static/css/write_post.css">
 
 </head>
 <style>
@@ -25,78 +26,81 @@
   }
 </style>
 <body>
-<div class="wrap">
-  <!---------------------- NAV ---------------------->
-  <nav class="navbar">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="../..">
-          <img src="../images/logo.png" alt="Logo">
-        </a>
-        <span class="navbar-burger burger" data-target="navbarMenu">
-                </span>
-      </div>
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
-            <div th:if="${name != null}">
-              <form id="my_form" action="/user/logout" method="post">
-                <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
-                  로그아웃
-                </a>
-              </form>
+  <div class="wrap">
+    <!---------------------- NAV ---------------------->
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="../..">
+            <img src="../images/logo.png" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenu">
+                  </span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+              <div th:if="${name != null}">
+                <form id="my_form" action="/user/logout" method="post">
+                  <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                    로그아웃
+                  </a>
+                </form>
+              </div>
             </div>
+            <a th:unless="${name != null}"
+               class="navbar-item is-size-5 has-text-weight-semibold" href="/user/signup">
+              Sign up
+            </a>
+            <a th:unless="${name != null}"
+               class="navbar-item is-size-5 has-text-weight-semibold" href="/user/login">
+              Sign in
+            </a>
           </div>
-          <a th:unless="${name != null}"
-             class="navbar-item is-size-5 has-text-weight-semibold" href="/user/signup">
-            Sign up
-          </a>
-          <a th:unless="${name != null}"
-             class="navbar-item is-size-5 has-text-weight-semibold" href="/user/login">
-            Sign in
-          </a>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!---------------------- 글 쓰기 ---------------------->
-  <section class="hero section-container">
-    <div class="hero-body">
-      <div class="container list-btn-container">
-        <section class="modal-card-body">
-          <!-- Content ... -->
-          <form action="/posts/post" method="post">
-            <div class="field">
-              <label class="label">제목</label>
-              <div class="control">
-                <input name="title" id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+    <!---------------------- 글 쓰기 ---------------------->
+    <section class="hero section-container">
+      <div class="hero-body">
+        <div class="container list-btn-container">
+          <section class="modal-card-body">
+            <!-- Content ... -->
+            <form action="/posts/post" method="post">
+              <div class="field">
+                <label class="label">제목</label>
+                <div class="control">
+                  <input name="title" id="write-title" class="input" type="text" placeholder="제목을 입력하세요">
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">작성자</label>
-              <div class="control">
-                <input name="name" id="write-name" class="input" type="text"
-                                                   placeholder="이름을 입력하세요" th:value="${name}">
+              <div class="field">
+                <label class="label">작성자</label>
+                <div class="control">
+                  <input name="name" id="write-name" class="input" type="text"
+                                                     placeholder="이름을 입력하세요" th:value="${name}">
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">내용</label>
-              <div class="control">
-                <textarea name="content" id="write-content" class="textarea" placeholder="내용을 입력하세요"></textarea>
-              </div>
-              <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
-              <button class="button is-rounded modal-button">글쓰기</button>
-            </div>
-            <input id="write-id" type="hidden" value="">
-          </form>
-        </section>
+              <div class="field">
+                <label class="label">내용</label>
+                <div class="control">
+                  <textarea name="content" id="write-content" class="textarea" rows="12" placeholder="내용을 입력하세요"></textarea>
+                </div>
+                <div class="btns">
+                  <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
+                  <button class="button is-rounded modal-button">글쓰기</button>
+                </div>
+                </div>
+              <input id="write-id" type="hidden" value="">
+            </form>
+          </section>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+</div>
 
 <!---------------------- footer ---------------------->
 <footer class="footer">

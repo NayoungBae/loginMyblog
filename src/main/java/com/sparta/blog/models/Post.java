@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -25,6 +26,9 @@ public class Post extends Timestamped{
 
     @Column(nullable = false)
     private String content; //내용
+
+    @OneToMany
+    private List<Comment> comments; //게시물에 달린 댓글
 
     public Post(PostRequestDto requestDto, Long userId) {
         this.title = requestDto.getTitle();

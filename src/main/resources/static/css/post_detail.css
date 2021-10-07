@@ -8,3 +8,43 @@ html, body {
     min-height: 100%;
 }
 /* 브라우저 화면 비율 조절해도 footer 안 보이게 하기 end */
+.detail-edit-div {
+    width: 50%;
+    margin: auto;
+}
+.btns{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+.cell-width-15-bold {
+    width: 15%;
+    font-weight: bold;
+}
+.comments {
+    margin-top: 50px;
+}
+.comment-info {
+    padding: 20px;
+}
+.message {
+    margin-top: 20px;
+}
+.comment-info {
+    display: flex;
+}
+.comment-name {
+    display: flex;
+    justify-content: flex-start;
+    width: 10%;
+}
+.comment-createdate {
+    display: flex;
+    justify-content: flex-start;
+    width: 40%;
+}
+.comment-edit-delete {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+}
