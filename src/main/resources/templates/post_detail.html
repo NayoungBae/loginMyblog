@@ -143,8 +143,9 @@
                   <textarea name="content" id="write-content" class="textarea"
                             placeholder="내용을 입력하세요" th:text="${post.content}"></textarea>
                 </div>
-              <div class="btns">
-                  <button class="button is-rounded modal-button">수정하기</button>
+              <div class="buttons is-right complete-edit-btn-div">
+                <button class="button is-rounded" onclick="window.location.reload()">취소</button>
+                <button class="button is-rounded modal-button">수정하기</button>
               </div>
             </div>
           </form>
