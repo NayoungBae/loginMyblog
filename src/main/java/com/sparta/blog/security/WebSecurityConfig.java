@@ -47,6 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/login",
                                         "/user/signup",
                                         "/user/kakao/callback").permitAll()
+                //댓글
+                .antMatchers("/comments/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()
