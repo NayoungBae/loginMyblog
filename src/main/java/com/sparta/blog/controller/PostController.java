@@ -22,30 +22,6 @@ public class PostController {
 
     private final PostService postService;
 
-    //로그인 안 했을 때 타는 로직
-    //로그인 했을 때 WebSecurityConfig의 defaultSuccessUrl("/")를 타는데
-    //이것은 스프링 시큐리티가 알아서 index라는 파일을 찾아감
-    @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) 시작 >>>>");
-        try {
-            if(userDetails != null) {
-                System.out.println("userId: " + userDetails.getUser().getId());
-                model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
-                model.addAttribute("userId", userDetails.getUser().getId()); //USER테이블 고유번호
-            }
-
-            List<Post> postList = postService.getPosts();
-            model.addAttribute("postList", postList);
-
-        } catch(Exception e) {
-            System.out.println("PostController) home 함수에서 에러: " + e.getMessage());
-        }
-
-        System.out.println("public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) 끝 >>>>");
-        return "index";
-    }
-
     //글쓰기 페이지 이동
     @GetMapping("/post")
     public String writePost(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {

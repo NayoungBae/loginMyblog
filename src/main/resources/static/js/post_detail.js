@@ -2,6 +2,17 @@ $(document).ready(function() {
     //댓글 조회
     getComments($("#post-id").val());
 
+    //현재 로그인한 사람 userId
+    let current_logined_user_id = $("#logined-user-id").val();
+    //보고있는 게시물을 작성한 사람 userId
+    let posted_user_id = $("#posted-user-id").val();
+    console.log("현재로그인한 사람:" + current_logined_user_id);
+    console.log("이 글을 쓴 사람:" + posted_user_id);
+
+    //로그인한 사람이 쓴 게시물이 아닐 경우 수정 버튼 숨김
+    if(current_logined_user_id != posted_user_id) {
+        $("#edit-btn").hide();
+    }
 
     $("#show-detail").show();
     $("#edit-post").hide();
