@@ -39,6 +39,7 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <div th:if="${name != null}">
                 <form id="my_form" action="/user/logout" method="post">
                   <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
@@ -64,11 +65,11 @@
     <section class="hero section-container">
       <div class="hero-body">
         <div class="container list-btn-container">
-          <div class="container">
-            <div class="buttons is-right write-btn-container">
+          <div class="container write-delete-btn">
+            <div class="buttons is-right write-btn-container" th:if="${name != null}">
               <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
               <button class="button is-rounded modal-button"
-                      onclick="location.href='/posts/post'">글쓰기</button>
+                      onclick="location.href='/post'">글쓰기</button>
             </div>
           </div>
           <div class="container post-list-table-container">
@@ -90,7 +91,7 @@
                     작성한 글이 없습니다.
                   </td>
                 </tr>
-                <tr th:each="post : ${postList}" th:onclick="location.href='/posts/post/[[${post.id}]]'">
+                <tr th:each="post : ${postList}" th:onclick="location.href='/detail/[[${post.id}]]'">
                     <td onclick="event.cancelBubble=true">
                       <input type="checkbox" name="check" th:if="${post.userId == userId}"
                              th:value="${post.id}">
@@ -104,8 +105,10 @@
             </table>
             </form>
           </div>
-          <!-- Pagination -->
-          <nav id="pagination" class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+
+          <!-- Pagination(기능 제거) -->
+          <nav id="pagination" class="pagination is-centered is-rounded"
+               role="navigation" aria-label="pagination">
             <a id="pagination-previous" class="pagination-previous">Previous</a>
             <a id="pagination-next" class="pagination-next">Next page</a>
             <ul id="pagination-list" class="pagination-list">

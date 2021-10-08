@@ -32,15 +32,15 @@
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="../..">
-            <img src="../images/logo.png" alt="Logo">
+            <img src="/images/logo.png" alt="Logo">
           </a>
-          <span class="navbar-burger burger" data-target="navbarMenu">
-                  </span>
+          <span class="navbar-burger burger" data-target="navbarMenu"></span>
         </div>
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
               <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <div th:if="${name != null}">
                 <form id="my_form" action="/user/logout" method="post">
                   <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
@@ -64,6 +64,7 @@
 
     <!---------------------- 글 쓰기 ---------------------->
     <section class="hero section-container">
+      <input id="logined-user-id" type="hidden" th:value="${userId}">
       <div class="hero-body">
         <div class="container list-btn-container">
           <section class="modal-card-body">
@@ -89,9 +90,9 @@
                 <div class="control">
                   <textarea name="content" id="write-content" class="textarea" rows="12" placeholder="내용을 입력하세요"></textarea>
                 </div>
-                <div class="btns">
-                  <button id="delete-btn" class="button is-rounded modal-button">삭제</button>
-                  <button class="button is-rounded modal-button">글쓰기</button>
+                <div class="buttons is-right write-btns-div">
+                  <button class="button is-rounded modal-button" onclick="location.href='/'">목록으로</button>
+                  <button class="button is-rounded">글쓰기</button>
                 </div>
                 </div>
               <input id="write-id" type="hidden" value="">

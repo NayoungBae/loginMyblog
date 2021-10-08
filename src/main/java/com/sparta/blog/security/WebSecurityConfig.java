@@ -38,17 +38,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 //js 폴더를 login 없이 허용
                 .antMatchers("/js/**").permitAll()
-//                // 회원 관리 처리 API 전부를 login 없이 허용
-//                .antMatchers("/user/**").permitAll()
-                //로그인 없이 게시글 목록 조회 페이지로 이동 허용
-                .antMatchers("/",
-                                        "/posts/post/**").permitAll()
-                //특정 맵핑만 허용: 로그인, 회원가입
+                //로그인 없이 특정 맵핑만 허용:
+                // 게시글 목록 조회 페이지, 상세조회 페이지
+                .antMatchers("/index",
+                                        "/detail/**").permitAll()
+                //로그인 없이 특정 맵핑만 허용:
+                // 로그인, 회원가입
                 .antMatchers("/user/login",
                                         "/user/signup",
                                         "/user/kakao/callback").permitAll()
-                //댓글
-                .antMatchers("/comments/**").permitAll()
+                //댓글 API 허용
+               .antMatchers("/comments/**").permitAll()
+
+                //전부 허용(위에서 다 적어두고 모든 페이지를 허용하면 의미가 있나?)
+                .antMatchers("/**").permitAll()
+
+
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()

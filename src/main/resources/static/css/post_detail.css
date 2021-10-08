@@ -12,10 +12,8 @@ html, body {
     width: 50%;
     margin: auto;
 }
-.btns{
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
+.edit-btns-div {
+    margin-top: 30px;
 }
 .cell-width-15-bold {
     width: 15%;
@@ -26,7 +24,7 @@ html, body {
 }
 #comment-textarea {
     width: 100%;
-    height: 120px;
+    height: 100px;
     margin-top: 50px;
 }
 .write-comment-btn-div {

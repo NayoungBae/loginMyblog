@@ -11,8 +11,6 @@ section {
     width: 70%;
     margin: auto;
 }
-
-.btns{
-    margin: 20px 0;
-    float: right;
+.write-btns-div {
+    margin-top: 20px;
 }

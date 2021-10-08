@@ -54,3 +54,6 @@ html, body {
     width: 15%;
     font-weight: bold;
 }
+.write-delete-btn {
+    height: 50px;
+}

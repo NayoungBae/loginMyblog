@@ -82,7 +82,6 @@ public class UserController {
             }
         } catch(Exception e) {
             System.out.println("UserController) 에러:" + e.getMessage());
-            model.addAttribute("mustLogin","로그인이 필요합니다.");
         }
     }
 

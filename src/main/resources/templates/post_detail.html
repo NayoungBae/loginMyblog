@@ -33,13 +33,13 @@
           <a class="navbar-item" href="../..">
             <img src="/images/logo.png" alt="Logo">
           </a>
-          <span class="navbar-burger burger" data-target="navbarMenu">
-        </span>
+          <span class="navbar-burger burger" data-target="navbarMenu"></span>
         </div>
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
               <div th:if="${name != null}">안녕하세요, <span th:text="${name}"></span>님!</div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <div th:if="${name != null}">
                 <form id="my_form" action="/user/logout" method="post">
                   <a id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">
@@ -90,11 +90,13 @@
             </tbody>
           </table>
           </div>
-          <div class="btns">
-            <button class="button is-rounded modal-button" onclick="location.href='/'">목록으로</button>
-            <button id="edit-btn" class="button is-rounded modal-button" th:if="${name != null}">수정하기</button>
+          <div class="buttons is-right edit-btns-div">
+            <button class="button is-rounded" onclick="location.href='/'">목록으로</button>
+            <button id="edit-btn" class="button is-rounded" th:if="${name != null}">수정하기</button>
           </div>
         </div>
+
+        <hr>
 
         <!-- 댓글 쓰기 -->
         <div id="write-comment-wrap">

@@ -1,9 +1,7 @@
-let post_user_id_wrote = {};
-
 $(document).ready(function() {
     //댓글 조회
     getComments($("#post-id").val());
-    console.log(post_user_id_wrote);
+
 
     $("#show-detail").show();
     $("#edit-post").hide();
@@ -31,10 +29,25 @@ function getComments(postId) {
                     let user_id = response[i]["userId"];
                     let name = response[i]["name"];
                     let comment = response[i]["comment"];
+
+                    //작성일 출력 형식 변경
                     let modified_at = response[i]["modifiedAt"];
+                    //날짜만 가져오기
+                    let date_substr = modified_at.substr(0,10);
+                    let date_split = date_substr.split("-"); //년-월-일 에서 '_'기준으로 split
+                    let date = date_split[0] + "/" + date_split[1] + "/" + date_split[2];
+                    console.log("date_substr: " + date_substr);
+                    //시간만 가져오기
+                    let time_substr = modified_at.substr(11);
+                    let time_split = time_substr.split(":"); //시:분:초.ss ':' 기준으로 split
+                    let time = time_split[0] + ":" + time_split[1]; //시분초 중 초를 잘라내기 위함
+                    console.log("time_substr: " + time_substr);
+
+                    let modified_date = date + " " + time;
+
                     console.log(id, user_id, name, comment, modified_at);
 
-                    addCommentsHTML(id, user_id, name, comment, modified_at);
+                    addCommentsHTML(id, user_id, name, comment, modified_date);
                 }
             }
         }
@@ -42,7 +55,7 @@ function getComments(postId) {
 }
 
 //댓글 형태 만들기
-function addCommentsHTML(id, user_id, name, comment, modified_at) {
+function addCommentsHTML(id, user_id, name, comment, modified_date) {
     let current_logined_user_id = $("#logined-user-id").val();
     let temp_html = ``;
     let temp_html_1 =
@@ -50,7 +63,7 @@ function addCommentsHTML(id, user_id, name, comment, modified_at) {
             <div class="comment-info">
               <input type="hidden" id="${id}-user-id" value="${user_id}">
               <div id="${id}-name" class="comment-name">${name}</div>&nbsp;&nbsp;|&nbsp;&nbsp;
-              <div class="comment-createdate">${modified_at}</div>`
+              <div class="comment-createdate">${modified_date}</div>`
     let temp_edit_delete_html =
               `<div id="${id}-comment-edit-delete-div" class="comment-edit-delete-div">
                 <a id="delet-comment" onclick="deleteComment('${id}')">삭제</a>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -95,6 +108,7 @@ function writePost() {
         $("#write-comment-btn").attr("disabled", false);
         return;
     }
+
     console.log(userId, postId, comment);
 
     let data = {userId:userId, postId:postId,
@@ -117,6 +131,9 @@ function writePost() {
 
 //댓글 수정 부분 열기
 function editMode(id) {
+    let pre_comment = $(`#${id}-comment`).text(); //이전 댓글 내용
+    $(`#${id}-edit-comment`).text(pre_comment); //이전 내용 불러오기
+
     $(`#${id}-edit-comment-div`).show();
     $(`#${id}-comment`).hide();
 }
@@ -127,7 +144,7 @@ function editComment(id) {
     let postId = $("#post-id").val();
     let name = $(`#${id}-name`).text();
     let comment = $(`#${id}-edit-comment`).val();
-    let pre_comment = $(`#${id}-comment`).text();
+    let pre_comment = $(`#${id}-comment`).text(); //이전 댓글 내용
 
     console.log(userId, postId, name, comment, pre_comment);
 

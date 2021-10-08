@@ -2,10 +2,12 @@ package com.sparta.blog.controller;
 
 import com.sparta.blog.models.Post;
 import com.sparta.blog.models.PostRequestDto;
+import com.sparta.blog.models.UserRoleEnum;
 import com.sparta.blog.security.UserDetailsImpl;
 import com.sparta.blog.service.CommentService;
 import com.sparta.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +46,8 @@ public class PostController {
         return "index";
     }
 
-    @GetMapping("posts/post")
+    //글쓰기 페이지 이동
+    @GetMapping("/post")
     public String writePost(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if(userDetails != null) {
             model.addAttribute("userId", userDetails.getUser().getId());
@@ -53,6 +56,7 @@ public class PostController {
         return "write_post";
     }
 
+    //글쓰기(DB Insert)
     @PostMapping("/posts/post")
     public String insertPost(PostRequestDto requestDto,
                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -62,12 +66,12 @@ public class PostController {
         //로그인 되어 있는 회원 테이블의 ID값
         Long userId = userDetails.getUser().getId();
         System.out.println("userId: " + userId);
-        Post post = postService.createPost(requestDto, userId);
+        postService.createPost(requestDto, userId);
         return "redirect:/";
     }
 
-    //상세보기
-    @GetMapping("/posts/post/{id}")
+    //상세보기 페이지 이동
+    @GetMapping("/detail/{id}")
     public String postDetail(@PathVariable Long id, Model model,
                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
         System.out.println("public Optional<Post> postDetail() 시작 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -91,12 +95,8 @@ public class PostController {
 
         postService.update(id, requestDto);
 
-        //model.addAttribute("userId", userDetails.getUser().getId()); //로그인 되어 있는 회원 테이블의 ID값
-        //model.addAttribute("name", userDetails.getUser().getName()); //사용자 이름
-
-
         System.out.println("public String updatePost() 끝 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        return "redirect:/posts/post/{id}";
+        return "redirect:/detail/{id}";
     }
 
     //삭제하기
