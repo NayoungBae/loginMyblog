@@ -33,22 +33,6 @@ public class UserController {
         return "login";
     }
 
-//    // 회원 로그인 페이지
-//    @GetMapping("/user/login")
-//    public String login(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        try {
-//            String nickname = userDetails.getUsername();
-//            System.out.println("nickname: " + nickname);
-//            if(nickname != null) {
-//                model.addAttribute("nickname", nickname);
-//            }
-//        } catch(Exception e) {
-//            System.out.println("에러:" + e.getMessage());
-//            model.addAttribute("errorMessage", e.getMessage());
-//        }
-//        return "login";
-//    }
-
     // 회원가입 페이지
     @GetMapping("/user/signup")
     public String signup(SignupRequestDto signupRequestDto, Model model,
@@ -60,18 +44,7 @@ public class UserController {
         return "sign_up";
     }
 
-//    public void isLogined(Model model, UserDetailsImpl userDetails) {
-//        try {
-//            String nickname = userDetails.getUsername();
-//            System.out.println("nickname: " + nickname);
-//            if(nickname != null) {
-//                model.addAttribute("isLoginedMessage", "이미 로그인이 되어있습니다.");
-//            }
-//        } catch(Exception e) {
-//            System.out.println("UserController) 에러:" + e.getMessage());
-//        }
-//    }
-
+    //로그인 되어있는지 판단 후 메시지를 화면에 넘기기
     public void isLogined(Model model, UserDetailsImpl userDetails) {
         try {
             String nickname = userDetails.getUser().getNickname();
@@ -84,18 +57,6 @@ public class UserController {
             System.out.println("UserController) 에러:" + e.getMessage());
         }
     }
-
-//     //회원 가입 요청 처리
-//    @PostMapping("/user/signup")
-//    public String registerUser(SignupRequestDto requestDto){
-//        try {
-//            userService.registerUser(requestDto);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return "redirect:/user/login?fail";
-//        }
-//        return "redirect:/user/login";
-//    }
 
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
@@ -129,6 +90,7 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    //카카오 로그인 요청
     @GetMapping("/user/kakao/callback")
     public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
         kakaoUserService.kakoLogin(code);

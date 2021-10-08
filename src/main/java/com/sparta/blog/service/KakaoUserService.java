@@ -27,8 +27,16 @@ import java.util.UUID;
 
 @Service
 public class KakaoUserService {
+
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
+    //카카오 로그인 REST API 키
+    private final String client_id = "968a59f7030b890138578667d3dadef4";
+    //로컬(로컬로 할 때 kakao developers 사이트 가서 설정 바꿔줘야 함)
+    //private final String redirect_uri = "http://localhost:8080/user/kakao/callback";
+    //AWS(로컬로 할 때 kakao developers 사이트 가서 설정 바꿔줘야 함)
+    private final String redirect_uri = "http://nybae.shop/user/kakao/callback";
 
     @Autowired
     public KakaoUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -56,8 +64,8 @@ public class KakaoUserService {
         // HTTP Body 생성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "65757a6b51817f912577c3f5cbbc77a7");
-        body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+        body.add("client_id", client_id);
+        body.add("redirect_uri", redirect_uri);
         body.add("code", code);
 
         // HTTP 요청 보내기
